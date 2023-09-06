@@ -21,6 +21,11 @@ func stop_walk():
 	if anim.current_animation == "walk":
 		anim.play("idle")
 
+func grabbed():
+	anim.play("grabbed")
+
+func fall():
+	anim.play("fall")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "walk": return

@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 # This is the pet itself
 # You can make as many as you'd like in theory and this can be anything you like.
 # As long as everything you want on screen is in the Cutout group and overwrites
@@ -6,6 +6,9 @@ extends Node2D
 # polygons assinged if they don't overwrite get_cutout_polygon()
 
 var goal_position : Vector2
+var mousebutton_down : bool
+var velocity = Vector2()
+const GRAVITY = 200.0
 
 onready var visual := $PetVisuals
 onready var buttons := $Buttons
@@ -15,19 +18,35 @@ func _ready():
 	setPosition()
 	choose_pos()
 	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == 1 and event.is_pressed():
+			mousebutton_down = true
+		elif event.button_index == 1 and not event.is_pressed():
+			mousebutton_down = false
+
 
 func _process(_delta):
 	
-	if (goal_position-position).length() > 20:
-		var dir := ((goal_position-position)/10).clamped(5)
-		position += dir
-		visual.flip_h = dir.x > 0
-		visual.walk()
+#	if (goal_position-position).length() > 20 && mousebutton_down == false:
+#		var dir := ((goal_position-position)/10).clamped(5)
+#		position += dir
+#		visual.flip_h = dir.x > 0
+#		visual.walk()
 #		get_node("/root/Root").update_pet_area()
-	else:
-		visual.stop_walk()
+#	elif mousebutton_down == false && is_on_floor() == true:
+#		visual.stop_walk()
+	if mousebutton_down == false && is_on_floor() == false:
+		visual.fall()
+	elif mousebutton_down == true:
+		var grab_offset = Vector2(visual.get_rect().size.x * 1.5, visual.get_rect().size.y / 1.5)
+		position = get_global_mouse_position() - grab_offset
+		velocity = Vector2(0, 0)
+		visual.grabbed()
 	
-
+func _physics_process(delta):
+	velocity.y += GRAVITY * delta
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 func choose_pos():
 	var r = buttons.get_rect()
