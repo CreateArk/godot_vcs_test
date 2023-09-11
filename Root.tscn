@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Root.gd" type="Script" id=1]
 [ext_resource path="res://Pet/Pet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Pet/HeartManager.gd" type="Script" id=3]
+[ext_resource path="res://BorderWall.gd" type="Script" id=3]
 
 [node name="Root" type="Node"]
 script = ExtResource( 1 )
@@ -23,5 +23,5 @@ color = Color( 0.196078, 1, 0, 0.294118 )
 [node name="Line2D" type="Line2D" parent="debugdraw"]
 points = PoolVector2Array( 100, 0, 100, 100 )
 
-[node name="HeartManager" type="Node2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 script = ExtResource( 3 )
