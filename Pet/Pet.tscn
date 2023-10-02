@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Pet/Pet.gd" type="Script" id=1]
 [ext_resource path="res://Portray/Rectangle.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Pet/Calculator.gd" type="Script" id=8]
 [ext_resource path="res://Pet/windows.gd" type="Script" id=9]
 [ext_resource path="res://Pet/minigames/balloonPop/balloonPop.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Pet/HeartManager.gd" type="Script" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Button
@@ -21,8 +22,8 @@ func _on_nextScreenbtn_pressed():
 "
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 36.0
-height = 6.0
+radius = 28.0
+height = 0.0
 
 [node name="Pet" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -380,10 +381,10 @@ script = ExtResource( 3 )
 
 [node name="Notesbtn" parent="Buttons" instance=ExtResource( 7 )]
 visible = false
-margin_left = 39.0
-margin_top = 18.0
-margin_right = 89.0
-margin_bottom = 38.0
+margin_left = 23.0
+margin_top = 38.0
+margin_right = 73.0
+margin_bottom = 58.0
 text = "Notes"
 popup_path = NodePath("../../windows/Notes")
 
@@ -398,10 +399,10 @@ popup_path = NodePath("../../windows/Shortcuts")
 
 [node name="calculatorbtn" parent="Buttons" instance=ExtResource( 7 )]
 visible = false
-margin_left = 26.0
-margin_top = 48.0
-margin_right = 101.0
-margin_bottom = 68.0
+margin_left = 11.0
+margin_top = 50.0
+margin_right = 86.0
+margin_bottom = 70.0
 text = "Calculator"
 popup_path = NodePath("../../windows/Calculator")
 
@@ -447,8 +448,15 @@ script = SubResource( 1 )
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 48, 57 )
+position = Vector2( 65, 100 )
 shape = SubResource( 2 )
+
+[node name="HeartManager" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="HeartTimer" type="Timer" parent="HeartManager"]
+wait_time = 5.0
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="choose_pos"]
 [connection signal="text_changed" from="windows/Notes/Margin/Notes" to="windows/Notes/Margin/Notes" method="_on_Notes_text_changed"]
@@ -467,3 +475,4 @@ shape = SubResource( 2 )
 [connection signal="pressed" from="Buttons/goAway" to="Buttons" method="_on_goAway_pressed"]
 [connection signal="toggled" from="Buttons/follow" to="Buttons" method="_on_follow_toggled"]
 [connection signal="pressed" from="Buttons/nextScreenbtn" to="Buttons/nextScreenbtn" method="_on_nextScreenbtn_pressed"]
+[connection signal="timeout" from="HeartManager/HeartTimer" to="HeartManager" method="_on_HeartTimer_timeout"]

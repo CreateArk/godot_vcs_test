@@ -26,9 +26,14 @@ func grabbed():
 
 func fall():
 	anim.play("fall")
+	
+func set_idle():
+	anim.play("idle")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "walk": return
+	if anim_name == "walk" : return
+	if anim_name == "grabbed" : return
+	if anim_name == "fall" : return
 	
 	if randi() % 10 == 0:
 		if idle_variations == 1:

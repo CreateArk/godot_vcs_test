@@ -14,6 +14,7 @@ var was_on_floor : bool
 onready var pet_state = state.idle
 onready var visual := $PetVisuals
 onready var buttons := $Buttons
+onready var save_file = SaveFile.game_data
 
 func _ready():
 	randomize()
@@ -99,6 +100,7 @@ func check_state():
 		elif was_on_floor == false:
 			visual.fall()
 			pet_state = state.fall
+
 
 func choose_pos():
 	if is_on_floor() == false:

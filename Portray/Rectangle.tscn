@@ -1,7 +1,39 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Portray/pics/Mascot.png" type="Texture" id=1]
+[ext_resource path="res://Portray/pics/Mascot_4Legs.png" type="Texture" id=1]
 [ext_resource path="res://Portray/Rectangle.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=8]
+resource_name = "Happy_Body"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 10 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Happy_Head"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -66,7 +98,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 5 ]
+"values": [ 0, 1 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -83,12 +115,12 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 4, 5 ]
+"values": [ 0, 1, 0, 1 ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "walk"
-length = 1.6
+length = 2.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -97,14 +129,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 2, 3, 4, 5 ]
 }
 
 [node name="Pet" type="Sprite" groups=["Cutout"]]
-scale = Vector2( 3, 3 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 centered = false
 hframes = 8
@@ -114,6 +146,8 @@ script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
+anims/Happy_Body = SubResource( 8 )
+anims/Happy_Head = SubResource( 7 )
 anims/RESET = SubResource( 1 )
 anims/fall = SubResource( 6 )
 anims/grabbed = SubResource( 5 )
